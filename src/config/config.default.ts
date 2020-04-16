@@ -1,6 +1,6 @@
 import { EggAppConfig, EggAppInfo, PowerPartial } from "midway";
 import { buildSchema } from "type-graphql";
-import UserResolver from "../app/graphql/resolver";
+import UserResolver from "../app/graphql-past/resolver";
 
 async function initialize() {
   const schema = await buildSchema({
