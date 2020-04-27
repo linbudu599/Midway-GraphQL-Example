@@ -1,13 +1,13 @@
 import { EggAppConfig, EggAppInfo, PowerPartial } from "midway";
-import { buildSchema } from "type-graphql";
-import UserResolver from "../app/graphql-past/resolver";
+// import { buildSchema } from "type-graphql";
+// import UserResolver from "../app/graphql-past/resolver";
 
-async function initialize() {
-  const schema = await buildSchema({
-    resolvers: [UserResolver],
-  });
-  return schema;
-}
+// async function initialize() {
+//   const schema = await buildSchema({
+//     resolvers: [UserResolver],
+//   });
+//   return schema;
+// }
 
 export type DefaultConfig = PowerPartial<EggAppConfig>;
 
@@ -28,12 +28,11 @@ export default (appInfo: EggAppInfo) => {
   config.graphql = {
     router: "/graphql",
     app: true,
-    agent: false,
     graphiql: true,
-    apolloServerOptions: {
-      schema: initialize(),
-      // playground: true,
-    },
+    // apolloServerOptions: {
+    //   schema: initialize(),
+    //   // playground: true,
+    // },
   };
 
   config.security = {

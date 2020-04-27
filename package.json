@@ -4,33 +4,12 @@
   "description": "{{description}}",
   "private": true,
   "dependencies": {
-    "@types/graphql": "^14.5.0",
-    "@types/node": "^10.17.19",
-    "apollo-server": "^2.12.0",
-    "chalk": "^4.0.0",
-    "dataloader": "^2.0.0",
-    "dotenv": "^8.2.0",
-    "egg-graphql": "^2.7.0",
-    "egg-scripts": "^2.10.0",
-    "graphql": "^14.1.1",
-    "midway": "^1.0.0",
-    "reflect-metadata": "^0.1.13",
-    "type-graphql": "^0.17.6",
-    "typedi": "^0.8.0",
-    "typeorm": "^0.2.24"
+    "egg-graphql": "^2.2.0",
+    "midway": "1"
   },
   "devDependencies": {
-    "@types/mocha": "^5.2.7",
-    "@types/node": "^10.5.5",
-    "cross-env": "^6.0.0",
-    "egg-ci": "^1.8.0",
     "midway-bin": "1",
-    "midway-mock": "1",
-    "tslib": "^1.8.1",
-    "tslint-midway-contrib": "1",
-    "ts-node": "^8.3.0",
-    "tslint": "^5.11.0",
-    "typescript": "^3.5.0"
+    "midway-demo-lib": "1"
   },
   "engines": {
     "node": ">=10.16.0"
