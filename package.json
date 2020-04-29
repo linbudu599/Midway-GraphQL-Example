@@ -4,8 +4,9 @@
   "description": "{{description}}",
   "private": true,
   "dependencies": {
+    "cross-env": "^7.0.2",
     "egg-graphql": "^2.2.0",
-    "midway": "1"
+    "midway": "^1.18.6"
   },
   "devDependencies": {
     "midway-bin": "1",

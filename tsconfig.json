@@ -13,7 +13,8 @@
     "stripInternal": true,
     "pretty": true,
     "declaration": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "noImplicitAny": false
   },
   "exclude": [
     "dist",

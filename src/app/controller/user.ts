@@ -5,7 +5,7 @@ import { IUserService, IUserResult } from "../../interface";
 @controller("/user")
 export class UserController {
   @inject("userService")
-  service: IUserService;
+  service!: IUserService;
 
   @get("/:id")
   async getUser(ctx): Promise<void> {

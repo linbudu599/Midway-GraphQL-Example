@@ -16,6 +16,97 @@
 
 当前的实现去掉了`TypeGraphQL`, 而改为[Midway-Example-GraphQL](https://github.com/midwayjs/midway-examples/tree/4a22e07c661a01aa05221fe56e11dce6c9bfc604/demo-plugin-egg-graphql)提供的示例写法(使用的仍然是`egg-plugin-graphql`这个插件), 即使用`schema.graphql`来定义范式, 如果要实现原本规划的效果, 可能需要整个`Midway-TypeGraphQL`来进行支持. 类似于`Egg-GraphQL`的思路, 内部使用`Apollo-Server-Koa`起一个服务, 并作为主应用的中间件和插件进行拦截`/graphql`的请求并处理.(话是这么说但是我还真写不出来现在).
 
+## Current Implement
+
+与`Egg`中使用的方式类似, `Egg-GraphQL`的源码解析可以看[这里](https://github.com/linbudu599/Source-Code/tree/master/Egg-GraphQL).
+
+分别建立 `mutation` `query` `token`文件夹, 在其下使用`schema.graphql`书写SDL, 注意多个文件夹下的会被自动收集, 所在在一个文件夹中定义的标量和类型可以直接在另外一个中使用.
+
+拆分`connector`和`resolver`的方式也并无区别(**connector负责调取ORM的API, resolver负责接收查询上下文并调用对应的connector.xxx**)
+
+以mutation举例来说:
+
+mutation/schema.graphql
+
+```graphql
+type MutationCommonRes {
+  success: Boolean
+  message: String
+}
+type Mutation {
+  # Token表
+  createToken(input: CreateTokenReq): MutationCommonRes
+  updateToken(input: UpdateTokenReq): MutationCommonRes
+  deleteToken(input: DeleteTokenReq): MutationCommonRes
+}
+```
+
+(输入类型`CreateTokenReq`定义在token文件夹下的schema)
+
+token/resolver.Js
+
+```Js
+module.exports = {
+  Mutation: {
+    createToken: (root, args, ctx) => {
+      const params = args.input;
+      return ctx.connector.token.createToken(params);
+    },
+    updateToken: (root, args, ctx) => {
+      const params = args.input;
+      return ctx.connector.token.updateToken(params);
+    },
+    deleteToken: (root, args, ctx) => {
+      const params = args.input;
+      return ctx.connector.token.deleteToken(params);
+    },
+  },
+};
+
+```
+
+可以看到这里的逻辑是很简洁的, 从参数(`args`)中取出input并交由`connector`, 这里有一个地方需要注意, 在`Egg-GraphQL`
+的源码实现中, 直接将Koa(Egg)的上下文交给了`Apollo-Server-Koa`来启动服务. 所以这里的ctx.connector实际上就是经过扩展的
+产物. 如果不想看源码, 只需要知道各个文件夹下的connecotr会被以文件夹名称作为键值挂载到`ctx.connector`下.
+
+token/connector.js
+
+```Js
+class TokenConnector {
+  constructor(ctx) {
+    this.ctx = ctx;
+    this.requestContext = this.ctx.requestContext;
+  }
+
+  async createToken() {
+    return {
+      success: true,
+      message: "ok",
+    };
+  }
+
+  // ...more methods
+
+  async getTokenById() {
+    // 获取 ioc 容器中的对象
+    // 注意，这里必须实时拿取 userService 实例，每个请求周期的实例都不同
+    const userService = await this.requestContext.getAsync("userService");
+    const data = await userService.getUserList();
+    return {
+      success: true,
+      message: "get service data " + JSON.stringify(data),
+      data: { id: "1" },
+    };
+  }
+
+}
+```
+
+可以看到这里实际上才是处理返回数据的地方, 和Egg的使用方式没有什么区别. 需要注意的一点是`getTokenById`方法, 如果
+在`connector`中, 想要去调用service, 需要`this.requestContext.getAsync(<provided name>)`, 来实时拿取实例.
+
+TS支持, 如果在Egg-GraphQL中新增如果是`.ts`文件就先编译再搜集可以吗?
+
 ## Dependences 💡
 
 - [Midway.Js](https://github.com/midwayjs/midway)
