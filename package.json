@@ -1,35 +1,40 @@
 {
-  "name": "my_first_midway_project",
+  "name": "my_midway_project",
   "version": "1.0.0",
-  "description": "{{description}}",
+  "description": "",
   "private": true,
   "dependencies": {
-    "cross-env": "^7.0.2",
-    "egg-graphql": "^2.2.0",
-    "midway": "^1.18.6"
+    "@midwayjs/web": "^2.3.0",
+    "@midwayjs/decorator": "^2.3.0",
+    "egg": "^2.0.0",
+    "egg-scripts": "^2.10.0"
   },
   "devDependencies": {
-    "midway-bin": "1",
-    "midway-demo-lib": "1"
+    "@midwayjs/cli": "^1.0.0",
+    "@midwayjs/egg-ts-helper": "^1.0.1",
+    "@midwayjs/mock": "^2.3.0",
+    "@types/jest": "^26.0.10",
+    "@types/node": "14",
+    "cross-env": "^6.0.0",
+    "mwts": "^1.0.5",
+    "jest": "^26.4.0",
+    "ts-jest": "^26.2.0",
+    "typescript": "^3.9.0"
   },
   "engines": {
-    "node": ">=10.16.0"
+    "node": ">=12.0.0"
   },
   "scripts": {
-    "start": "egg-scripts start --daemon --title=midway-server-my_first_midway_project --framework=midway --ts",
-    "stop": "egg-scripts stop --title=midway-server-my_first_midway_project",
+    "start": "egg-scripts start --daemon --title=midway-server-my_midway_project --framework=@midwayjs/web",
+    "stop": "egg-scripts stop --title=midway-server-my_midway_project",
     "start_build": "npm run build && cross-env NODE_ENV=development midway-bin dev",
-    "clean": "midway-bin clean",
-    "dev": "cross-env NODE_ENV=local midway-bin dev --ts",
-    "debug": "cross-env NODE_ENV=local midway-bin debug --ts",
-    "test": "npm run lint && midway-bin test --ts",
-    "cov": "midway-bin cov --ts",
-    "lint": "tslint --fix -p tsconfig.json -t stylish",
+    "dev": "cross-env ets && cross-env NODE_ENV=local midway-bin dev --ts",
+    "test": "midway-bin test",
+    "cov": "midway-bin cov",
+    "lint": "mwts check",
+    "lint:fix": "mwts fix",
     "ci": "npm run cov",
     "build": "midway-bin build -c"
-  },
-  "ci": {
-    "version": "10"
   },
   "midway-bin-clean": [
     ".vscode/.tsbuildinfo",
