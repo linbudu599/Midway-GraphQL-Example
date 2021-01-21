@@ -1,3 +1,5 @@
 export const security = {
-  csrf: false
-}
+  csrf: {
+    ignore: '/graphql',
+  },
+};

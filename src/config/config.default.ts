@@ -10,7 +10,7 @@ export default (appInfo: EggAppInfo) => {
   config.keys = appInfo.name + '_{{keys}}';
 
   // add your config here
-  config.middleware = [];
+  config.middleware = ['graphql'];
 
   config.orm = {
     type: 'sqlite',
@@ -21,6 +21,14 @@ export default (appInfo: EggAppInfo) => {
     logger: 'advanced-console',
     entities: ['/src/entities/*.ts'],
   } as ConnectionOptions;
+
+  config.graphql = {
+    a: '1',
+  };
+
+  config.security = {
+    csrf: false,
+  };
 
   return config;
 };
