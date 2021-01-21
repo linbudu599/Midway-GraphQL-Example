@@ -1,4 +1,5 @@
 import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg';
+import { ConnectionOptions } from '../lib/orm';
 
 export type DefaultConfig = PowerPartial<EggAppConfig>;
 
@@ -10,6 +11,16 @@ export default (appInfo: EggAppInfo) => {
 
   // add your config here
   config.middleware = [];
+
+  config.orm = {
+    type: 'sqlite',
+    name: 'default',
+    database: 'db.sqlite',
+    synchronize: true,
+    dropSchema: true,
+    logger: 'advanced-console',
+    entities: ['/src/entities/*.ts'],
+  } as ConnectionOptions;
 
   return config;
 };

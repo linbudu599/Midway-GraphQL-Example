@@ -1,13 +1,16 @@
 {
-  "name": "my_midway_project",
+  "name": "midwayjs_typeorm_example",
   "version": "1.0.0",
   "description": "",
   "private": true,
   "dependencies": {
-    "@midwayjs/web": "^2.3.0",
     "@midwayjs/decorator": "^2.3.0",
+    "@midwayjs/orm": "^1.3.0",
+    "@midwayjs/web": "^2.3.0",
     "egg": "^2.0.0",
-    "egg-scripts": "^2.10.0"
+    "egg-scripts": "^2.10.0",
+    "sqlite3": "^5.0.1",
+    "typeorm": "^0.2.30"
   },
   "devDependencies": {
     "@midwayjs/cli": "^1.0.0",
