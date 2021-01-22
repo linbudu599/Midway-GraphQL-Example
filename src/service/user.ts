@@ -1,6 +1,6 @@
 import { Provide } from '@midwayjs/decorator';
 import { InjectEntityModel, InjectConnection, InjectManager } from '../lib/orm';
-import { User } from '../entities/User.entity';
+import { User } from '../entity/User.entity';
 import { Connection, Repository, EntityManager } from 'typeorm';
 
 @Provide()

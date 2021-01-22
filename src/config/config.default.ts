@@ -1,3 +1,4 @@
+import { ServerRegistration } from 'apollo-server-koa';
 import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg';
 import { ConnectionOptions } from '../lib/orm';
 
@@ -9,8 +10,8 @@ export default (appInfo: EggAppInfo) => {
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_{{keys}}';
 
-  // add your config here
-  config.middleware = ['graphql'];
+  // eggjs版本的全局中间件还是要在这里开启
+  config.middleware = ['eggraphql'];
 
   config.orm = {
     type: 'sqlite',
@@ -22,8 +23,12 @@ export default (appInfo: EggAppInfo) => {
     entities: ['/src/entities/*.ts'],
   } as ConnectionOptions;
 
-  config.graphql = {
-    a: '1',
+  config.apollo = {
+    path: '/graphql',
+  } as ServerRegistration;
+
+  config['eggraphql'] = {
+    path: '/eggraphql',
   };
 
   config.security = {

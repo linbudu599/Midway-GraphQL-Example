@@ -19,7 +19,6 @@ export const ENTITY_MODEL_KEY = 'entity_model_key';
 export const EVENT_SUBSCRIBER_KEY = 'event_subscriber_key';
 export const ORM_MODEL_KEY = '__orm_model_key__';
 
-// TODO: 使用这个选项规范连接配置
 export { ConnectionOptions } from 'typeorm';
 
 /**
