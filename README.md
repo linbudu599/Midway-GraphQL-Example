@@ -1,9 +1,3 @@
 # Midway-GraphQL-Starter
 
-## Include
-
-- MidwayJS
-- TypeGraphQL
-- Prisma 2 / TypeORM
-- SQLite
-- Midway-Serverless / Vercel Adapter
+Migrate to [Midway-GraphQL-Starter](https://github.com/linbudu599/Midway-GraphQL-Starter)
